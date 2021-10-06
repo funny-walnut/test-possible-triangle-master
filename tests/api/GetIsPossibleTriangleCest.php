@@ -24,7 +24,6 @@ class GetIsPossibleTriangleCest
         $I->seeResponseContainsJson($provider['expectedMessage']);
     }
 
-
     protected function dataSource(): Generator
     {
         yield 'positive test' => [
