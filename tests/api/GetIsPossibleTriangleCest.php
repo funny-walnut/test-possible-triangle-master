@@ -244,6 +244,36 @@ class GetIsPossibleTriangleCest
             'expectedCode' => HttpCode::BAD_REQUEST,
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
+
+        yield 'name a as k' =>  [
+            'datum' => [
+                'k' => '3',
+                'b' => '4',
+                'c' => '2'
+            ],
+            'expectedCode' => HttpCode::BAD_REQUEST,
+            'expectedMessage' => ['message' => ['error' => 'Not valid data']],
+        ];
+
+        yield 'name b as k' =>  [
+            'datum' => [
+                'a' => '3',
+                'k' => '4',
+                'c' => '2'
+            ],
+            'expectedCode' => HttpCode::BAD_REQUEST,
+            'expectedMessage' => ['message' => ['error' => 'Not valid data']],
+        ];
+
+        yield 'name c as k' =>  [
+            'datum' => [
+                'a' => '3',
+                'b' => '4',
+                'k' => '2'
+            ],
+            'expectedCode' => HttpCode::BAD_REQUEST,
+            'expectedMessage' => ['message' => ['error' => 'Not valid data']],
+        ];
     }
 }
 
