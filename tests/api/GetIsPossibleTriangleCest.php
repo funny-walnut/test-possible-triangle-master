@@ -27,7 +27,7 @@ class GetIsPossibleTriangleCest
 
     protected function dataSource(): Generator
     {
-        yield [
+        yield 'positive test' => [
             'datum' => [
                 'a' => '3',
                 'b' => '2',
@@ -37,7 +37,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['isPossible' => 'true'],
         ];
 
-        yield [
+        yield 'sum a & b equals c' => [
             'datum' => [
                 'a' => '2',
                 'b' => '2',
@@ -47,7 +47,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['isPossible' => 'false'],
         ];
 
-        yield [
+        yield 'sum b & c equals a' => [
             'datum' => [
                 'a' => '4',
                 'b' => '2',
@@ -57,7 +57,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['isPossible' => 'false'],
         ];
 
-        yield [
+        yield 'sum a & c equals b' => [
             'datum' => [
                 'a' => '2',
                 'b' => '4',
@@ -67,7 +67,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['isPossible' => 'false'],
         ];
 
-        yield [
+        yield 'sum a & b less c' => [
             'datum' => [
                 'a' => '1',
                 'b' => '2',
@@ -77,7 +77,27 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['isPossible' => 'false'],
         ];
 
-        yield [
+        yield 'sum a & c less b' => [
+            'datum' => [
+                'a' => '1',
+                'b' => '4',
+                'c' => '2'
+            ],
+            'expectedCode' => HttpCode::OK,
+            'expectedMessage' => ['isPossible' => 'false'],
+        ];
+
+        yield 'sum b & c less a' => [
+            'datum' => [
+                'a' => '4',
+                'b' => '2',
+                'c' => '1'
+            ],
+            'expectedCode' => HttpCode::OK,
+            'expectedMessage' => ['isPossible' => 'false'],
+        ];
+
+        yield 'a = 0, b > 0, c > 0' =>  [
             'datum' => [
                 'a' => '0',
                 'b' => '2',
@@ -87,7 +107,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'b = 0, a > 0, c > 0' => [
             'datum' => [
                 'a' => '2',
                 'b' => '0',
@@ -97,7 +117,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'c = 0, a > 0, b > 0' => [
             'datum' => [
                 'a' => '2',
                 'b' => '4',
@@ -107,7 +127,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'a - fractional number' => [
             'datum' => [
                 'a' => '2.2',
                 'b' => '5',
@@ -117,7 +137,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'b - fractional number' => [
             'datum' => [
                 'a' => '5',
                 'b' => '2.2',
@@ -127,7 +147,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'c - fractional number' => [
             'datum' => [
                 'a' => '5',
                 'b' => '4',
@@ -137,7 +157,37 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'a is negative number' => [
+            'datum' => [
+                'a' => '-2',
+                'b' => '4',
+                'c' => '3'
+            ],
+            'expectedCode' => HttpCode::BAD_REQUEST,
+            'expectedMessage' => ['message' => ['error' => 'Not valid data']],
+        ];
+
+        yield 'b is negative number' => [
+            'datum' => [
+                'a' => '2',
+                'b' => '-4',
+                'c' => '3'
+            ],
+            'expectedCode' => HttpCode::BAD_REQUEST,
+            'expectedMessage' => ['message' => ['error' => 'Not valid data']],
+        ];
+
+        yield 'c is negative number' => [
+            'datum' => [
+                'a' => '2',
+                'b' => '4',
+                'c' => '-3'
+            ],
+            'expectedCode' => HttpCode::BAD_REQUEST,
+            'expectedMessage' => ['message' => ['error' => 'Not valid data']],
+        ];
+
+        yield 'side a without value' => [
             'datum' => [
                 'a' => '',
                 'b' => '4',
@@ -146,7 +196,7 @@ class GetIsPossibleTriangleCest
             'expectedCode' => HttpCode::BAD_REQUEST,
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
-        yield [
+        yield 'side b without value' => [
             'datum' => [
                 'a' => '4',
                 'b' => '',
@@ -156,7 +206,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'side c without value' => [
             'datum' => [
                 'a' => '3',
                 'b' => '4',
@@ -166,7 +216,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'value a is string' => [
             'datum' => [
                 'a' => 'p',
                 'b' => '4',
@@ -176,7 +226,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'value b is string' =>  [
             'datum' => [
                 'a' => '3',
                 'b' => 'p',
@@ -186,7 +236,7 @@ class GetIsPossibleTriangleCest
             'expectedMessage' => ['message' => ['error' => 'Not valid data']],
         ];
 
-        yield [
+        yield 'value c is string' =>  [
             'datum' => [
                 'a' => '3',
                 'b' => '4',
