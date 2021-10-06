@@ -1,0 +1,10 @@
+version: '3'
+services:
+  php80:
+    image: optimaxeyewear/php:8.0
+    container_name: php80
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/services/test-possible-triangle
+      - ./_dockerFiles/php80/15-xdebug.ini:/etc/php.d/15-xdebug.ini
+    working_dir: /var/www/services/test-possible-triangle
